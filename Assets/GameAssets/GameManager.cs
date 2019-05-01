@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public VideoClip videoCountdown;
     public VideoClip thanksFor;
 
+    public bool isPlaying = false;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayVideo ()
     {
+        if(!isPlaying)
         StartCoroutine(StartVideo());
     }
 
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartVideo ()
     {
+        isPlaying = true;
         IntroVideoPlayer.Stop();
         IntroVideoPlayer.isLooping = false;
         IntroVideoPlayer.clip = videoCountdown;
@@ -80,7 +83,19 @@ public class GameManager : MonoBehaviour
         IntroVideoPlayer.gameObject.SetActive(true);
         yield return new WaitForEndOfFrame();
         IntroVideoPlayer.Play();
+        isPlaying = false;
+    }
 
+    public void StopPresentation ()
+    {
+        isPlaying = false;
+        videoPlayer.Stop();
+        videoPlayer.gameObject.SetActive(false);
+        IntroVideoPlayer.Stop();
+        IntroVideoPlayer.isLooping = true;
+        IntroVideoPlayer.clip = videoHold;
+        IntroVideoPlayer.gameObject.SetActive(true);
+        IntroVideoPlayer.Play();
     }
 }
 
