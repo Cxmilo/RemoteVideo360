@@ -19,14 +19,14 @@ public class Player : NetworkBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.PageDown) || Input.GetKeyDown(KeyCode.PageUp))
+        if (Input.GetKeyDown(KeyCode.PageDown))
         {
             RpcStartCountDown();
             GameManager.instance.PlayVideo();
             Debug.Log("Message Sent");
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.PageUp))
         {
             RpcStopVideo();
             GameManager.instance.StopPresentation();

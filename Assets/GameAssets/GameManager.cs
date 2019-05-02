@@ -55,11 +55,13 @@ public class GameManager : MonoBehaviour
 
     public void EnableVR()
     {
+        if(!XRSettings.enabled)
         StartCoroutine(LoadDevice("Cardboard", true));
     }
     public void DisableVR()
     {
-        StartCoroutine(LoadDevice("", false));
+        if (XRSettings.enabled)
+            StartCoroutine(LoadDevice("", false));
     }
 
     IEnumerator StartVideo ()
@@ -88,6 +90,8 @@ public class GameManager : MonoBehaviour
 
     public void StopPresentation ()
     {
+        return;
+
         isPlaying = false;
         videoPlayer.Stop();
         videoPlayer.gameObject.SetActive(false);
